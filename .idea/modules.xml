@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/shadow_health.iml" filepath="$PROJECT_DIR$/shadow_health.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/shadow_health_android.iml" filepath="$PROJECT_DIR$/android/shadow_health_android.iml" />
+    </modules>
+  </component>
+</project>

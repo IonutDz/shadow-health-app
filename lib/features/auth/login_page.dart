@@ -10,6 +10,7 @@ import 'auth_provider.dart';
 /// with your actual OAuth 2.0 Web Client ID from Google Cloud Console.
 final _googleSignIn = GoogleSignIn(
   clientId: '177898872987-6rqc6e350tmfocuuhh37ralkfdb9tneg.apps.googleusercontent.com',
+  serverClientId: '177898872987-6rqc6e350tmfocuuhh37ralkfdb9tneg.apps.googleusercontent.com',
   scopes: ['email', 'profile'],
 );
 

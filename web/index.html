@@ -46,5 +46,13 @@
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Google Identity Services - passes credential to Flutter via JS interop
+    function handleGoogleCredential(response) {
+      if (window._googleSignInCallback) {
+        window._googleSignInCallback(response.credential);
+      }
+    }
+  </script>
 </body>
 </html>

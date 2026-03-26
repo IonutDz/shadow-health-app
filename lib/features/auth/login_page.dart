@@ -102,29 +102,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             // Right form panel
             Expanded(
               flex: 45,
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: size.height),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 48),
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 420),
-                        child: _LoginForm(
-                          formKey: _formKey,
-                          emailCtrl: _emailCtrl,
-                          passCtrl: _passCtrl,
-                          emailFocus: _emailFocus,
-                          passFocus: _passFocus,
-                          obscure: _obscure,
-                          onToggleObscure: () => setState(() => _obscure = !_obscure),
-                          onLogin: _login,
-                          onGoogleLogin: _loginWithGoogle,
-                          state: state,
-                          googleLoading: _googleLoading,
-                          showMobileLogo: false,
-                        ),
-                      ),
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 48),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 420),
+                    child: _LoginForm(
+                      formKey: _formKey,
+                      emailCtrl: _emailCtrl,
+                      passCtrl: _passCtrl,
+                      emailFocus: _emailFocus,
+                      passFocus: _passFocus,
+                      obscure: _obscure,
+                      onToggleObscure: () => setState(() => _obscure = !_obscure),
+                      onLogin: _login,
+                      onGoogleLogin: _loginWithGoogle,
+                      state: state,
+                      googleLoading: _googleLoading,
+                      showMobileLogo: false,
                     ),
                   ),
                 ),

@@ -47,7 +47,7 @@ class AppTheme {
           onSecondary: primaryForeground,
         ),
         scaffoldBackgroundColor: background,
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: card,
           elevation: 0,
           shape: RoundedRectangleBorder(

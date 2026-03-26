@@ -52,42 +52,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   Future<void> _loginWithGoogle() async {
-    setState(() => _googleLoading = true);
-    try {
-      final account = await _googleSignIn.signIn();
-      if (account == null) {
-        setState(() => _googleLoading = false);
-        return;
-      }
-      final auth = await account.authentication;
-      final idToken = auth.idToken;
-      if (idToken == null) {
-        setState(() => _googleLoading = false);
-        ref.read(authProvider.notifier).clearError();
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content:
-                  Text('Ocurrió un error al iniciar sesión con Google.')),
-        );
-        return;
-      }
-      final success =
-          await ref.read(authProvider.notifier).loginWithGoogle(idToken);
-      if (success && mounted) {
-        context.go('/dashboard');
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content:
-                  Text('Ocurrió un error al iniciar sesión con Google: $e')),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => _googleLoading = false);
-    }
+    // Google Sign-In requires OAuth clientId configured for web.
+    // For now, show a friendly message instead of crashing.
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Google Sign-In próximamente. Usa email y contraseña.'),
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   @override
@@ -109,26 +81,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             // Right form panel
             Expanded(
               flex: 45,
-              child: Center(
-                child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 64, vertical: 32),
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 420),
-                    child: _LoginForm(
-                      formKey: _formKey,
-                      emailCtrl: _emailCtrl,
-                      passCtrl: _passCtrl,
-                      emailFocus: _emailFocus,
-                      passFocus: _passFocus,
-                      obscure: _obscure,
-                      onToggleObscure: () =>
-                          setState(() => _obscure = !_obscure),
-                      onLogin: _login,
-                      onGoogleLogin: _loginWithGoogle,
-                      state: state,
-                      googleLoading: _googleLoading,
-                      showMobileLogo: false,
+              child: SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: size.height),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 48),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 420),
+                        child: _LoginForm(
+                          formKey: _formKey,
+                          emailCtrl: _emailCtrl,
+                          passCtrl: _passCtrl,
+                          emailFocus: _emailFocus,
+                          passFocus: _passFocus,
+                          obscure: _obscure,
+                          onToggleObscure: () => setState(() => _obscure = !_obscure),
+                          onLogin: _login,
+                          onGoogleLogin: _loginWithGoogle,
+                          state: state,
+                          googleLoading: _googleLoading,
+                          showMobileLogo: false,
+                        ),
+                      ),
                     ),
                   ),
                 ),

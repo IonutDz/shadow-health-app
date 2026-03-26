@@ -92,7 +92,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             Expanded(flex: 55, child: _BrandingPanel()),
             Expanded(
               flex: 45,
-              child: Center(
+              child: Align(
+                alignment: Alignment.topCenter,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 48),
                   child: ConstrainedBox(

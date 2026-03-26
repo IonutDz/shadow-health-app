@@ -40,8 +40,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
   static const _baseUrl = 'https://shadow-health-api.onrender.com';
   final _dio = Dio(BaseOptions(
     baseUrl: _baseUrl,
-    connectTimeout: const Duration(seconds: 15),
-    receiveTimeout: const Duration(seconds: 15),
+    connectTimeout: const Duration(seconds: 60),
+    receiveTimeout: const Duration(seconds: 60),
   ));
 
   Future<void> checkAuth() async {

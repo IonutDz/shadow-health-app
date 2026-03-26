@@ -412,27 +412,21 @@ class _LoginForm extends StatelessWidget {
           // Email
           const _FieldLabel(text: 'Email'),
           const SizedBox(height: 6),
-          SizedBox(
-            height: 48,
-            child: TextFormField(
-              controller: emailCtrl,
-              focusNode: emailFocus,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              autofocus: false,
-              maxLines: 1,
-              style: const TextStyle(color: AppTheme.foreground, fontSize: 14),
-              decoration: _inputDeco(
-                hint: 'tu@email.com',
-                icon: Icons.mail_outline,
-              ),
-              validator: (v) {
-                if (v == null || v.trim().isEmpty) return 'Ingresa tu email';
-                if (!v.contains('@')) return 'Email inválido';
-                return null;
-              },
-              onFieldSubmitted: (_) => passFocus.requestFocus(),
-            ),
+          TextFormField(
+            controller: emailCtrl,
+            focusNode: emailFocus,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            autofocus: false,
+            maxLines: 1,
+            style: const TextStyle(color: AppTheme.foreground, fontSize: 14),
+            decoration: _inputDeco(hint: 'tu@email.com', icon: Icons.mail_outline),
+            validator: (v) {
+              if (v == null || v.trim().isEmpty) return 'Ingresa tu email';
+              if (!v.contains('@')) return 'Email inválido';
+              return null;
+            },
+            onFieldSubmitted: (_) => passFocus.requestFocus(),
           ),
           const SizedBox(height: 16),
 
@@ -459,35 +453,32 @@ class _LoginForm extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          SizedBox(
-            height: 48,
-            child: TextFormField(
-              controller: passCtrl,
-              focusNode: passFocus,
-              obscureText: obscure,
-              textInputAction: TextInputAction.done,
-              autofocus: false,
-              maxLines: 1,
-              style: const TextStyle(color: AppTheme.foreground, fontSize: 14),
-              decoration: _inputDeco(
-                hint: 'Min. 6 caracteres',
-                icon: Icons.lock_outline,
-                suffix: IconButton(
-                  icon: Icon(
-                    obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                    color: AppTheme.primary.withOpacity(0.7),
-                    size: 18,
-                  ),
-                  onPressed: onToggleObscure,
+          TextFormField(
+            controller: passCtrl,
+            focusNode: passFocus,
+            obscureText: obscure,
+            textInputAction: TextInputAction.done,
+            autofocus: false,
+            maxLines: 1,
+            style: const TextStyle(color: AppTheme.foreground, fontSize: 14),
+            decoration: _inputDeco(
+              hint: 'Min. 6 caracteres',
+              icon: Icons.lock_outline,
+              suffix: IconButton(
+                icon: Icon(
+                  obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                  color: AppTheme.primary.withOpacity(0.7),
+                  size: 18,
                 ),
+                onPressed: onToggleObscure,
               ),
-              validator: (v) {
-                if (v == null || v.isEmpty) return 'Ingresa tu contraseña';
-                if (v.length < 6) return 'Mínimo 6 caracteres';
-                return null;
-              },
-              onFieldSubmitted: (_) => onLogin(),
             ),
+            validator: (v) {
+              if (v == null || v.isEmpty) return 'Ingresa tu contraseña';
+              if (v.length < 6) return 'Mínimo 6 caracteres';
+              return null;
+            },
+            onFieldSubmitted: (_) => onLogin(),
           ),
           const SizedBox(height: 24),
 
@@ -635,8 +626,9 @@ class _LoginForm extends StatelessWidget {
       suffixIcon: suffix,
       filled: true,
       fillColor: AppTheme.surface,
+      isDense: true,
       contentPadding:
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+          const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: AppTheme.border),

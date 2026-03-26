@@ -367,6 +367,7 @@ class _LoginForm extends StatelessWidget {
     return Form(
       key: formKey,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // Mobile logo

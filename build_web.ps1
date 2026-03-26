@@ -1,18 +1,23 @@
 # Shadow Health - Build Web Script
-# Run from project dir:  .\build_web.ps1
-
 $ErrorActionPreference = "Stop"
-Write-Host "🌐 Shadow Health - Building Web..." -ForegroundColor Cyan
+$projectDir = "C:\Users\shado\Desktop\shadow-health-app"
+$flutterBin = "C:\Users\shado\flutter\bin\flutter.bat"
 
-Set-Location "C:\Users\shado\Desktop\shadow-health-app"
+Set-Location $projectDir
 
-flutter pub get
-flutter build web --release --no-tree-shake-icons --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.com/flutter-canvaskit/
+Write-Host "Adding web platform..." -ForegroundColor Yellow
+& $flutterBin create . --platforms web
+if ($LASTEXITCODE -ne 0) { Write-Host "flutter create failed" -ForegroundColor Red; exit 1 }
 
-if ($LASTEXITCODE -eq 0) {
-    Write-Host ""
-    Write-Host "✅ Web build ready at: build\web\" -ForegroundColor Green
-    Write-Host "   Deploy to Firebase Hosting, Netlify, Vercel, etc." -ForegroundColor Cyan
-} else {
-    Write-Host "❌ Web build failed!" -ForegroundColor Red
+Write-Host "Getting dependencies..." -ForegroundColor Yellow
+& $flutterBin pub get
+
+Write-Host "Building web..." -ForegroundColor Yellow
+& $flutterBin build web --release --no-tree-shake-icons
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Build failed!" -ForegroundColor Red
+    exit 1
 }
+
+Write-Host "Web build OK - build/web/" -ForegroundColor Green

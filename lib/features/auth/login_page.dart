@@ -628,6 +628,7 @@ class _LoginForm extends StatelessWidget {
       filled: true,
       fillColor: AppTheme.surface,
       isDense: true,
+      constraints: const BoxConstraints(maxHeight: 48),
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       border: OutlineInputBorder(

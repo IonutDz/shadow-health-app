@@ -124,7 +124,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       key: _formKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Title
           Text(
@@ -210,6 +210,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
           // Submit button
           SizedBox(
+            width: double.infinity,
             height: 48,
             child: ElevatedButton(
               onPressed: state.isLoading ? null : _submit,
@@ -240,6 +241,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
           // Google button
           SizedBox(
+            width: double.infinity,
             height: 48,
             child: OutlinedButton(
               onPressed: _googleLoading ? null : _loginWithGoogle,
@@ -303,7 +305,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     TextInputType? keyboard,
     String? Function(String?)? validator,
   }) {
-    return TextFormField(
+    return SizedBox(
+      width: double.infinity,
+      child: TextFormField(
       controller: controller,
       obscureText: obscure,
       keyboardType: keyboard,
@@ -339,6 +343,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
       validator: validator,
+      ),
     );
   }
 }

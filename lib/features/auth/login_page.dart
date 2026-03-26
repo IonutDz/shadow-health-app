@@ -418,6 +418,7 @@ class _LoginForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             autofocus: false,
+            maxLines: 1,
             style: const TextStyle(color: AppTheme.foreground, fontSize: 14),
             decoration: _inputDeco(
               hint: 'tu@email.com',
@@ -461,6 +462,7 @@ class _LoginForm extends StatelessWidget {
             obscureText: obscure,
             textInputAction: TextInputAction.done,
             autofocus: false,
+            maxLines: 1,
             style: const TextStyle(color: AppTheme.foreground, fontSize: 14),
             decoration: _inputDeco(
               hint: 'Min. 6 caracteres',

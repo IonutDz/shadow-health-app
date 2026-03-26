@@ -9,9 +9,7 @@ import 'auth_provider.dart';
 /// TODO: Replace 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
 /// with your actual OAuth 2.0 Web Client ID from Google Cloud Console.
 final _googleSignIn = GoogleSignIn(
-  // clientId is required for web. On Android/iOS, remove this line and
-  // configure via google-services.json / GoogleService-Info.plist.
-  // clientId: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+  clientId: '177898872987-6rqc6e350tmfocuuhh37ralkfdb9tneg.apps.googleusercontent.com',
   scopes: ['email', 'profile'],
 );
 
@@ -52,14 +50,37 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   Future<void> _loginWithGoogle() async {
-    // Google Sign-In requires OAuth clientId configured for web.
-    // For now, show a friendly message instead of crashing.
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Google Sign-In próximamente. Usa email y contraseña.'),
-        duration: Duration(seconds: 3),
-      ),
-    );
+    setState(() => _googleLoading = true);
+    try {
+      final account = await _googleSignIn.signIn();
+      if (account == null) {
+        setState(() => _googleLoading = false);
+        return;
+      }
+      final auth = await account.authentication;
+      final idToken = auth.idToken;
+      if (idToken == null) {
+        setState(() => _googleLoading = false);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Error al obtener token de Google.')),
+          );
+        }
+        return;
+      }
+      final success = await ref.read(authProvider.notifier).loginWithGoogle(idToken);
+      if (success && mounted) {
+        context.go('/dashboard');
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error Google Sign-In: $e')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _googleLoading = false);
+    }
   }
 
   @override
